@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+    import React, { useState, useEffect } from 'react';
     import axios from 'axios';
 
     const Form = () => {
@@ -37,8 +37,24 @@ import React, { useState, useEffect } from 'react';
       const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-          const response = await axios.post('http://localhost:3001/api/form', formData);
+          // Create a new object with only the necessary form data
+          const dataToSend = {
+            fullName: formData.fullName,
+            cityGroup: formData.cityGroup,
+            hydrationGoals: formData.hydrationGoals,
+            dietNutrition: formData.dietNutrition,
+            studyRead: formData.studyRead,
+            dailyProgressPhoto: formData.dailyProgressPhoto,
+            mindfulnessPractice: formData.mindfulnessPractice,
+            abstinence: formData.abstinence,
+            connectionNetworking: formData.connectionNetworking,
+            consistency: formData.consistency,
+          };
+
+          const response = await axios.post('http://localhost:3001/api/form', dataToSend); // Send the new object
           console.log('Form submitted successfully:', response.data);
+
+          // Reset form data
           setFormData({
             fullName: '',
             cityGroup: '',
@@ -51,7 +67,13 @@ import React, { useState, useEffect } from 'react';
             connectionNetworking: '',
             consistency: '',
           });
+
           setFormSubmitted(true); // Show confirmation message
+
+          // Hide confirmation message after 3 seconds
+          setTimeout(() => {
+            setFormSubmitted(false);
+          }, 3000);
         } catch (error) {
           console.error('Error submitting form:', error);
         }
@@ -149,6 +171,7 @@ import React, { useState, useEffect } from 'react';
                   value="yes"
                   checked={formData.hydrationGoals === 'yes'}
                   onChange={handleChange}
+                  required
                 />
                 <span className="ml-2">Yes</span>
               </label>
@@ -160,6 +183,7 @@ import React, { useState, useEffect } from 'react';
                   value="no"
                   checked={formData.hydrationGoals === 'no'}
                   onChange={handleChange}
+                  required
                 />
                 <span className="ml-2">No</span>
               </label>
@@ -178,6 +202,7 @@ import React, { useState, useEffect } from 'react';
                   value="yes"
                   checked={formData.dietNutrition === 'yes'}
                   onChange={handleChange}
+                  required
                 />
                 <span className="ml-2">Yes</span>
               </label>
@@ -189,6 +214,7 @@ import React, { useState, useEffect } from 'react';
                   value="no"
                   checked={formData.dietNutrition === 'no'}
                   onChange={handleChange}
+                  required
                 />
                 <span className="ml-2">No</span>
               </label>
@@ -207,6 +233,7 @@ import React, { useState, useEffect } from 'react';
                   value="yes"
                   checked={formData.studyRead === 'yes'}
                   onChange={handleChange}
+                  required
                 />
                 <span className="ml-2">Yes</span>
               </label>
@@ -218,6 +245,7 @@ import React, { useState, useEffect } from 'react';
                   value="no"
                   checked={formData.studyRead === 'no'}
                   onChange={handleChange}
+                  required
                 />
                 <span className="ml-2">No</span>
               </label>
@@ -236,6 +264,7 @@ import React, { useState, useEffect } from 'react';
                   value="yes"
                   checked={formData.dailyProgressPhoto === 'yes'}
                   onChange={handleChange}
+                  required
                 />
                 <span className="ml-2">Yes</span>
               </label>
@@ -247,6 +276,7 @@ import React, { useState, useEffect } from 'react';
                   value="no"
                   checked={formData.dailyProgressPhoto === 'no'}
                   onChange={handleChange}
+                  required
                 />
                 <span className="ml-2">No</span>
               </label>
@@ -265,6 +295,7 @@ import React, { useState, useEffect } from 'react';
                   value="yes"
                   checked={formData.mindfulnessPractice === 'yes'}
                   onChange={handleChange}
+                  required
                 />
                 <span className="ml-2">Yes</span>
               </label>
@@ -276,6 +307,7 @@ import React, { useState, useEffect } from 'react';
                   value="no"
                   checked={formData.mindfulnessPractice === 'no'}
                   onChange={handleChange}
+                  required
                 />
                 <span className="ml-2">No</span>
               </label>
@@ -294,6 +326,7 @@ import React, { useState, useEffect } from 'react';
                   value="yes"
                   checked={formData.abstinence === 'yes'}
                   onChange={handleChange}
+                  required
                 />
                 <span className="ml-2">Yes</span>
               </label>
@@ -305,6 +338,7 @@ import React, { useState, useEffect } from 'react';
                   value="no"
                   checked={formData.abstinence === 'no'}
                   onChange={handleChange}
+                  required
                 />
                 <span className="ml-2">No</span>
               </label>
@@ -323,6 +357,7 @@ import React, { useState, useEffect } from 'react';
                   value="yes"
                   checked={formData.connectionNetworking === 'yes'}
                   onChange={handleChange}
+                  required
                 />
                 <span className="ml-2">Yes</span>
               </label>
@@ -334,6 +369,7 @@ import React, { useState, useEffect } from 'react';
                   value="no"
                   checked={formData.connectionNetworking === 'no'}
                   onChange={handleChange}
+                  required
                 />
                 <span className="ml-2">No</span>
               </label>
@@ -352,6 +388,7 @@ import React, { useState, useEffect } from 'react';
                   value="yes"
                   checked={formData.consistency === 'yes'}
                   onChange={handleChange}
+                  required
                 />
                 <span className="ml-2">Yes</span>
               </label>
@@ -363,15 +400,18 @@ import React, { useState, useEffect } from 'react';
                   value="no"
                   checked={formData.consistency === 'no'}
                   onChange={handleChange}
+                  required
                 />
                 <span className="ml-2">No</span>
               </label>
             </div>
           </div>
 
+          <hr className="my-6 border-t border-gray-300" />
+
           <div className="flex items-center justify-between">
             <button
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               type="submit"
             >
               Submit

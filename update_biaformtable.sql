@@ -1,3 +1,3 @@
--- Add the new 'full_name' column to the 'biaformtable'
+    -- Add the new 'week_start_date' column to the 'biaformtable'
     ALTER TABLE biaformtable
-    ADD COLUMN full_name TEXT;
+    ADD COLUMN week_start_date DATE;

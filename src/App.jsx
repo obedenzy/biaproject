@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+    import React, { useState, useEffect } from 'react';
     import Form from './components/Form';
 
     function App() {
-      const [currentDateTime, setCurrentDateTime] = useState('');
+      const [currentTime, setCurrentTime] = useState('');
 
       useEffect(() => {
         const updateDateTime = () => {
@@ -16,9 +16,10 @@ import React, { useState, useEffect } from 'react';
             minute: 'numeric',
             second: 'numeric',
             timeZone: 'America/New_York', // Eastern Time
+            timeZoneName: 'short',
           };
           const formattedDateTime = now.toLocaleString('en-US', options);
-          setCurrentDateTime(formattedDateTime + " (Eastern Time)");
+          setCurrentTime(formattedDateTime);
         };
 
         updateDateTime(); // Update on component mount
@@ -72,7 +73,7 @@ import React, { useState, useEffect } from 'react';
 
           {/* Form */}
           <div className="mb-8">
-            <p className="text-red-600 font-bold text-center text-lg">{currentDateTime}</p>
+            <p className="text-red-600 font-bold text-center text-lg">{currentTime}</p>
           </div>
           <Form />
         </div>
